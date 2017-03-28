@@ -16,13 +16,30 @@ function experience_panel_registration(){
 }
 
 function experience_panel_html(){
-    
-    //number of tiles to put in the panel
-    //number of rows in the panel
-    //number of columns in mobile (xs)
-    //number of columns on desktop (sm and up)
 
-    $numTilesOptions = "";
+    $plugin_options = array(
+        'numTiles' => array("label" => "Number of tiles in panel", "options" => ''), 
+        'numRows' => array("label" => "Number of rows in the panel", "options" => ''),
+        'numColumnsMobile' => array("label" => "Number of columns in mobile view", "options" => ''), 
+        'numColumnsDesktop' => array("label" => "Number of columns in desktop view", "options" => ''),
+    );
+    
+    $message = array('class' => 'updated notice is-dismissible', 'text' => 'Your settings were successfully saved.');
+
+    foreach($plugin_options as $key => $option){
+        if(isset($_POST[$key]))
+            update_option('epanel-'.$key, $_POST[$key]);
+        for($i=1; $i<=15; $i++){
+            if($key == "numRows" && $i > 5) break;
+            if(($key == "numColumnsDesktop" || $key == "numColumnsMobile") && $i > 12) break;
+            $option['options'] .= "<option value='$i'";
+            if(get_option('epanel-'.$key) == $i) $option['options'] .= " selected";
+            $option['options'] .= ">$i</option>";
+        }
+        $plugin_options[$key] = $option;
+    }
+
+    /*$numTilesOptions = "";
     $numRowsOptions = "";
     $numColumnsMobile = "";
     $numColumnsDesktop = "";
@@ -35,15 +52,12 @@ function experience_panel_html(){
             $numColumnsDesktop .= "<option value='$i'>$i</option>";
         }
     }
+    */
 
-    $plugin_options = array(
-        'numTiles' => array("label" => "Number of tiles in panel", "options" => $numTilesOptions), 
-        'numRows' => array("label" => "Number of rows in the panel", "options" => $numRowsOptions),
-        'numColumnsMobile' => array("label" => "Number of columns in mobile view", "options" => $numColumnsMobile), 
-        'numColumnsDesktop' => array("label" => "Number of columns in desktop view", "options" => $numColumnsDesktop),
-    );
+    if(!empty($_POST))
+        echo sprintf("<div class='%s'><p>%s</p></div>", $message['class'], $message['text']);
 ?>
-    <h2>Experience Panel Plugin Settings</h2>
+    <h1>Experience Panel Plugin Settings</h1>
     <p>Please input the required options for the Experience Panel.</p>
     <form method="POST">
         <div>
