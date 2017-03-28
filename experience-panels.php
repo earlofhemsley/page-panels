@@ -39,21 +39,6 @@ function experience_panel_html(){
         $plugin_options[$key] = $option;
     }
 
-    /*$numTilesOptions = "";
-    $numRowsOptions = "";
-    $numColumnsMobile = "";
-    $numColumnsDesktop = "";
-
-    for($i=1; $i<=15; $i++){
-        $numTilesOptions .= "<option value='$i'>$i</option>";
-        if($i<=5) $numRowsOptions .= "<option value='$i'>$i</option>";
-        if($i<=12){ 
-            $numColumnsMobile .= "<option value='$i'>$i</option>";
-            $numColumnsDesktop .= "<option value='$i'>$i</option>";
-        }
-    }
-    */
-
     if(!empty($_POST))
         echo sprintf("<div class='%s'><p>%s</p></div>", $message['class'], $message['text']);
 ?>
