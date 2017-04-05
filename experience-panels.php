@@ -82,6 +82,7 @@ class PagePanel extends WP_Widget {
     public function form($instance){
         echo '<p><strong>NOTE: </strong>You should go to the <a href="'.get_admin_url(null, '/plugins.php?page=page-panel-slug').'">page panel settings page</a> to set the number of tiles, rows and columns you would like to be included in the panel</p>';
         
+        //TODO: Only get pages with a thumbnail, or filter posts without one out of this array
         $pages = get_posts(array(
             'post_type'     => 'page',
         ));
@@ -140,15 +141,6 @@ class PagePanel extends WP_Widget {
             6 => 'col-sm-2',
             12 => 'col-sm-1',
         );
-
-       # $mobileClassMap = array(
-       #     1 => 'col-xs-12',
-       #     2 => 'col-xs-6',
-       #     3 => 'col-xs-4',
-       #     4 => 'col-xs-3',
-       #     6 => 'col-xs-2',
-       #     12 => 'col-xs-1',
-       # );
 
         $numTiles = get_option('ppanel-numTiles', 15);
         $regex = "/^ppanel-tile-";
