@@ -19,10 +19,11 @@ function page_panel_html(){
 
     $plugin_options = array(
         'numTiles' => array("label" => "Number of tiles in panel", "options" => ''), 
-        'numRowsMobile' => array("label" => "Number of rows in the panel", "options" => ''),
-        'numColumnsMobile' => array("label" => "Number of columns in mobile view", "options" => ''), 
-        'numColumnsDesktop' => array("label" => "Number of columns in desktop view", "options" => ''),
+        'numColumns' => array("label" => "Number of columns in desktop view", "options" => ''), 
     );
+    
+    //'numRows' => array("label" => "Number of rows in the panel", "options" => ''),
+    //'numColumnsDesktop' => array("label" => "Number of columns in desktop view", "options" => ''),
     
     $message = array('class' => 'updated notice is-dismissible', 'text' => 'Your settings were successfully saved.');
 
@@ -34,10 +35,7 @@ function page_panel_html(){
         for($i=1; $i<=15; $i++){
             if($key == "numRows" && $i > 5) break;
             
-            if(
-                ($key == "numColumnsDesktop" || $key == "numColumnsMobile") && 
-                !in_array($i, $acceptable_cols, TRUE)
-            ) continue;
+            if($key == "numColumns" && !in_array($i, $acceptable_cols, TRUE)) continue;
 
             $option['options'] .= "<option value='$i'";
             if(get_option('ppanel-'.$key) == $i) $option['options'] .= " selected";
@@ -129,7 +127,63 @@ class PagePanel extends WP_Widget {
     
     }
 
-    public function widget($args, $instance){}
+    public function widget($args, $instance){
+        //get options vars
+        //prepare query based on page values
+        //loop through pages and output tiles
+
+        $columnClassMap = array(
+            1 => 'col-sm-12',
+            2 => 'col-sm-6',
+            3 => 'col-sm-4',
+            4 => 'col-sm-3',
+            6 => 'col-sm-2',
+            12 => 'col-sm-1',
+        );
+
+       # $mobileClassMap = array(
+       #     1 => 'col-xs-12',
+       #     2 => 'col-xs-6',
+       #     3 => 'col-xs-4',
+       #     4 => 'col-xs-3',
+       #     6 => 'col-xs-2',
+       #     12 => 'col-xs-1',
+       # );
+
+        $numTiles = get_option('ppanel-numTiles', 15);
+        $regex = "/^ppanel-tile-";
+        $regex .= ($numTiles >= 10) ? "1[0-".$numTiles % 10 . "]$/" : "[1-$numTiles]$/";
+        $pageIds = array_intersect_key($instance, array_flip( preg_grep( $regex, array_keys($instance) ) ));
+
+        $col = 1;
+        $counter = 0;
+        $numColumns = get_option("ppanel-numColumns",4);
+        
+        foreach($pageIds as $pageId){
+            $tile = sprintf("<div class='%s'><img src='%s' /></div>",
+                $columnClassMap[$numColumns] . " ppanel-tile",
+                get_the_post_thumbnail_url($pageId, array(100,100))
+            );
+
+            if($col == 1){ 
+                $tile = "<div class='row'>"; 
+                $col++;
+            }
+            if($col > $numColumns || ++$counter === count($pageIds)) {
+                $col = 1;
+                $tile.= "</div>";
+            }
+
+            echo $tile;
+        }
+
+       # $ppQuery = new WP_Query(array(
+       #     'post_type' => 'page',
+       #     'post__in'  => array_intersect_key($instance, array_flip( preg_grep( $regex, array_keys($instance) ) )),
+       #     'orderby'   => 'post__in',
+       # ));
+
+    }
 
 }
 
