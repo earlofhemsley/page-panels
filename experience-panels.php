@@ -9,6 +9,8 @@
  * License: GPL2
  */
 
+//TODO: Check if theme supports thumbnails. if it doesn't, then add support.
+
 add_action('admin_menu','page_panel_registration');
 
 function page_panel_registration(){
