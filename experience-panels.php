@@ -80,11 +80,11 @@ class PagePanel extends WP_Widget {
     }
 
     public function form($instance){
-        echo '<p><strong>NOTE: </strong>You should go to the <a href="'.get_admin_url(null, '/plugins.php?page=page-panel-slug').'">page panel settings page</a> to set the number of tiles, rows and columns you would like to be included in the panel</p>';
+        echo '<p><strong>NOTE: </strong>You should go to the <a href="'.get_admin_url(null, '/plugins.php?page=page-panel-slug').'">page panel settings page</a> to set the number of tiles, rows and columns you would like to be included in the panel.</p><p><strong>ANOTHER NOTE:</strong> Only pages with thumbnails are displayed. If you don\'t see your page, make sure it has a thumbnail.</p>';
         
-        //TODO: Only get pages with a thumbnail, or filter posts without one out of this array
         $pages = get_posts(array(
             'post_type'     => 'page',
+            'meta_key'      => '_thumbnail_id',
         ));
 
         $numTiles = get_option('ppanel-numTiles', 15);
@@ -146,19 +146,21 @@ class PagePanel extends WP_Widget {
         $regex = "/^ppanel-tile-";
         $regex .= ($numTiles >= 10) ? "1[0-".$numTiles % 10 . "]$/" : "[1-$numTiles]$/";
         $pageIds = array_intersect_key($instance, array_flip( preg_grep( $regex, array_keys($instance) ) ));
+        $pageIds = array_filter($pageIds, function($v){ return $v != 0; });
 
         $col = 1;
         $counter = 0;
         $numColumns = get_option("ppanel-numColumns",4);
-        
+
         foreach($pageIds as $pageId){
-            $tile = sprintf("<div class='%s'><img src='%s' /></div>",
+            $tile = sprintf("<!-- %d --><div class='%s'><img src='%s' /></div>",
+                $pageId,
                 $columnClassMap[$numColumns] . " ppanel-tile",
                 get_the_post_thumbnail_url($pageId, array(100,100))
             );
 
             if($col == 1){ 
-                $tile = "<div class='row'>"; 
+                $tile = "<div class='row'>" . $tile; 
                 $col++;
             }
             if($col > $numColumns || ++$counter === count($pageIds)) {
