@@ -17,7 +17,7 @@ function theme_setup_assertions(){
 add_action('after_setup_theme','theme_setup_assertions');
 
 function assert_ppanel_styles(){
-    wp_enqueue_script('ppanel-styles', plugin_dir_url(__FILE__). 'css/ppanel-styles.css');
+    wp_enqueue_style('ppanel-styles', plugin_dir_url(__FILE__). 'css/ppanel-styles.css');
 }
 add_action('wp_enqueue_scripts', 'assert_ppanel_styles');
 
@@ -160,7 +160,7 @@ class PagePanel extends WP_Widget {
         $counter = 0;
         $numColumns = get_option("ppanel-numColumns",4);
 
-        echo sprintf('<div class="ppanel-container"><ul class="%s">', 'ppanel-col-'.$numColumns);
+        echo sprintf('<div class="ppanel-container"><ul class="%s">', "ppanel-$numColumns-col");
 
         foreach($pageIds as $pageId){
             $tile = sprintf("<!-- %d --><li><img src='%s' /></li>",
