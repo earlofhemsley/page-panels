@@ -1,0 +1,63 @@
+/*
+ * Page Panel v1.0 css styles
+ *
+ * */
+
+/*Panel container*/
+
+.ppanel-container{
+    width: 100%;
+    max-width: 800px;
+    margin: 10px auto;
+}
+
+.ppanel-container > ul{
+    column-gap: 40px;
+    -moz-column-gap: 40px;
+    -webkit-column-gap: 40px;
+    list-style:none;
+    padding: 0;
+    margin: 0;
+}
+
+.ppanel-container > ul > li{
+    width: 100%;
+    margin: 0 auto 15px;
+}
+
+.ppanel-container > ul.ppanel-1-col{
+    column-count:1;
+    -moz-column-count: 1;
+    -webkit-column-count: 1;
+}
+
+.ppanel-container > ul.ppanel-2-col{
+    column-count:2;
+    -moz-column-count: 2;
+    -webkit-column-count: 2;
+}
+
+.ppanel-container > ul.ppanel-3-col{
+    column-count:3;
+    -moz-column-count: 3;
+    -webkit-column-count: 3;
+
+}
+
+.ppanel-container > ul.ppanel-4-col{
+    column-count:4;
+    -moz-column-count: 4;
+    -webkit-column-count: 4;
+}
+
+.ppanel-container > ul.ppanel-5-col{
+    column-count:5;
+    -moz-column-count: 5;
+    -webkit-column-count: 5;
+}
+
+.ppanel-container > ul.ppanel-6-col{
+    column-count:6;
+    -moz-column-count: 6;
+    -webkit-column-count: 6;
+}

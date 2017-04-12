@@ -9,13 +9,22 @@
  * License: GPL2
  */
 
-//TODO: Check if theme supports thumbnails. if it doesn't, then add support.
+function theme_setup_assertions(){
+    if(!current_theme_supports('post_thumbnails')) add_theme_support('post-thumbnails');
+    if(function_exists( 'add_image_size' ))
+        add_image_size('ppanel-tile-size', 500, 500);
+}
+add_action('after_setup_theme','theme_setup_assertions');
 
-add_action('admin_menu','page_panel_registration');
+function assert_ppanel_styles(){
+    wp_enqueue_script('ppanel-styles', plugin_dir_url(__FILE__). 'css/ppanel-styles.css');
+}
+add_action('wp_enqueue_scripts', 'assert_ppanel_styles');
 
 function page_panel_registration(){
     add_submenu_page('plugins.php','Page Panel Plugin Settings','Page Panel Settings','activate_plugins','page-panel-slug','page_panel_html');
 }
+add_action('admin_menu','page_panel_registration');
 
 function page_panel_html(){
 
@@ -24,12 +33,9 @@ function page_panel_html(){
         'numColumns' => array("label" => "Number of columns in desktop view", "options" => ''), 
     );
     
-    //'numRows' => array("label" => "Number of rows in the panel", "options" => ''),
-    //'numColumnsDesktop' => array("label" => "Number of columns in desktop view", "options" => ''),
-    
     $message = array('class' => 'updated notice is-dismissible', 'text' => 'Your settings were successfully saved.');
 
-    $acceptable_cols = array(1,2,3,4,6,12);
+    $acceptable_cols = array(1,2,3,4,5,6);
 
     foreach($plugin_options as $key => $option){
         if(isset($_POST[$key]))
@@ -154,24 +160,30 @@ class PagePanel extends WP_Widget {
         $counter = 0;
         $numColumns = get_option("ppanel-numColumns",4);
 
+        echo sprintf('<div class="ppanel-container"><ul class="%s">', 'ppanel-col-'.$numColumns);
+
         foreach($pageIds as $pageId){
-            $tile = sprintf("<!-- %d --><div class='%s'><img src='%s' /></div>",
+            $tile = sprintf("<!-- %d --><li><img src='%s' /></li>",
                 $pageId,
-                $columnClassMap[$numColumns] . " ppanel-tile",
-                get_the_post_thumbnail_url($pageId, array(100,100))
+                get_the_post_thumbnail_url($pageId, 'ppanel-tile-size')
             );
 
-            if($col == 1){ 
-                $tile = "<div class='row'>" . $tile; 
-                $col++;
-            }
-            if($col > $numColumns || ++$counter === count($pageIds)) {
-                $col = 1;
-                $tile.= "</div>";
-            }
+          //  if($col == 1){ 
+          //      $tile = "<div class='row'>" . $tile; 
+          //      $col++;
+          //  }
+          //  if($col > $numColumns || ++$counter === count($pageIds)) {
+          //      $col = 1;
+          //      $tile.= "</div>";
+          //  }
 
             echo $tile;
         }
+
+        echo '</ul></div>';
+
+        //TODO: Produce Modals of page content
+        
 
        # $ppQuery = new WP_Query(array(
        #     'post_type' => 'page',
