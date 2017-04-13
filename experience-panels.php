@@ -18,8 +18,9 @@ add_action('after_setup_theme','theme_setup_assertions');
 
 function assert_ppanel_styles(){
     wp_enqueue_style('ppanel-styles', plugin_dir_url(__FILE__). 'css/ppanel-styles.css');
+    wp_enqueue_script('ppanel-script', plugin_dir_url(__FILE__).'js/ppanel-script.js', array('jquery'), false, true);
 }
-add_action('wp_enqueue_scripts', 'assert_ppanel_styles');
+add_action('wp_enqueue_scripts', 'assert_ppanel_styles', 1000);
 
 function page_panel_registration(){
     add_submenu_page('plugins.php','Page Panel Plugin Settings','Page Panel Settings','activate_plugins','page-panel-slug','page_panel_html');
