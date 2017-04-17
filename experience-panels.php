@@ -164,19 +164,10 @@ class PagePanel extends WP_Widget {
         echo sprintf('<div class="ppanel-container"><ul class="%s">', "ppanel-$numColumns-col");
 
         foreach($pageIds as $pageId){
-            $tile = sprintf("<!-- %d --><li><div class='ppanel-tile-image'><span class='helper'></span><img src='%s' /></div></li>",
+            $tile = sprintf("<!-- %d --><li><div class='ppanel-tile-image'><span class='helper'></span><img class='modalable' src='%s' /></div></li>",
                 $pageId,
                 get_the_post_thumbnail_url($pageId, 'ppanel-tile-size')
             );
-
-          //  if($col == 1){ 
-          //      $tile = "<div class='row'>" . $tile; 
-          //      $col++;
-          //  }
-          //  if($col > $numColumns || ++$counter === count($pageIds)) {
-          //      $col = 1;
-          //      $tile.= "</div>";
-          //  }
 
             echo $tile;
         }
@@ -186,11 +177,11 @@ class PagePanel extends WP_Widget {
         //TODO: Produce Modals of page content
         
 
-       # $ppQuery = new WP_Query(array(
-       #     'post_type' => 'page',
-       #     'post__in'  => array_intersect_key($instance, array_flip( preg_grep( $regex, array_keys($instance) ) )),
-       #     'orderby'   => 'post__in',
-       # ));
+       $ppQuery = new WP_Query(array(
+           'post_type' => 'page',
+           'post__in'  => array_intersect_key($instance, array_flip( preg_grep( $regex, array_keys($instance) ) )),
+           'orderby'   => 'post__in',
+       ));
 
     }
 

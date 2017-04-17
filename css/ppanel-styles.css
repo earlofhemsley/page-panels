@@ -41,6 +41,7 @@
     margin: 0 auto;
     display: inline-block;
     vertical-align:middle;
+    cursor:pointer;
 }
 
 @media screen and (max-width:726px){
