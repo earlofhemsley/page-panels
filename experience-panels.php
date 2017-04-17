@@ -164,7 +164,7 @@ class PagePanel extends WP_Widget {
         echo sprintf('<div class="ppanel-container"><ul class="%s">', "ppanel-$numColumns-col");
 
         foreach($pageIds as $pageId){
-            $tile = sprintf("<!-- %d --><li><img src='%s' /></li>",
+            $tile = sprintf("<!-- %d --><li><div class='ppanel-tile-image'><span class='helper'></span><img src='%s' /></div></li>",
                 $pageId,
                 get_the_post_thumbnail_url($pageId, 'ppanel-tile-size')
             );

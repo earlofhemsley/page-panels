@@ -23,6 +23,7 @@
 .ppanel-container > ul > li{
     width: 100%;
     margin: 0 auto 15px;
+    display: inline-block; 
 }
 
 .ppanel-container > ul.ppanel-1-col{
@@ -62,6 +63,21 @@
     -webkit-column-count: 6;
 }
 
-.ppanel-container > ul > li > img {
-    width: 100%;
+.ppanel-container .ppanel-tile-image{
+    width:100%;
+    border: 2px black solid;
 }
+
+.ppanel-container .ppanel-tile-image > span{
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.ppanel-container .ppanel-tile-image > img{
+    width:97%;
+    margin: 0 auto;
+    display: inline-block;
+    vertical-align:middle;
+}
+
