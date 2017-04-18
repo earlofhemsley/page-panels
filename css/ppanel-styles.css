@@ -53,8 +53,8 @@
     top: 50px;
     width: 75%;
     left: 50%;
-    max-width: 750px;
-    margin: 0 -375px;
+    max-width: 300px;
+    margin: 0 -150px;
     background-color: white;
     padding: 15px;
     border: black 1px solid;
@@ -100,7 +100,7 @@
 
 .ppanel-modal-thumbnail{
     width: 100%;
-    max-width:250px;
+    max-width:100px;
 }
 
 .ppanel-text-center{
@@ -125,6 +125,15 @@
 }
 
 @media screen and (min-width:727px){
+
+    .ppanel-modal-wrapper{
+        max-width: 500px;
+        margin: 0 -250px;
+    }
+
+    .ppanel-modal-thumbnail{
+        max-width:250px;
+    }
 
     .ppanel-container > ul{
         column-gap: 40px;
@@ -167,5 +176,12 @@
         column-count:6;
         -moz-column-count: 6;
         -webkit-column-count: 6;
+    }
+}
+
+@media screen and (min-width: 960px){
+    .ppanel-modal-wrapper{ 
+        max-width: 750px;
+        margin: 0 -375px;
     }
 }
