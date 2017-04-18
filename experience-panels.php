@@ -164,7 +164,8 @@ class PagePanel extends WP_Widget {
         echo sprintf('<div class="ppanel-container"><ul class="%s">', "ppanel-$numColumns-col");
 
         foreach($pageIds as $pageId){
-            $tile = sprintf("<!-- %d --><li><div class='ppanel-tile-image'><span class='helper'></span><img class='modalable' src='%s' /></div></li>",
+            $tile = sprintf("<!-- %d --><li><div class='ppanel-tile-image'><span class='helper'></span><img class='modalable' data-show='#ppanel-modal-%d' src='%s' /></div></li>",
+                $pageId,
                 $pageId,
                 get_the_post_thumbnail_url($pageId, 'ppanel-tile-size')
             );
@@ -174,15 +175,32 @@ class PagePanel extends WP_Widget {
 
         echo '</ul></div>';
 
-        //TODO: Produce Modals of page content
-        
+        echo '<div class="ppanel-modal-backdrop"></div>';
 
-       $ppQuery = new WP_Query(array(
+        $ppQuery = new WP_Query(array(
            'post_type' => 'page',
            'post__in'  => array_intersect_key($instance, array_flip( preg_grep( $regex, array_keys($instance) ) )),
            'orderby'   => 'post__in',
-       ));
-
+        ));
+        while($ppQuery->have_posts()):
+            $ppQuery->the_post();
+?>
+            <div class="ppanel-modal-wrapper" id="ppanel-modal-<?php the_ID(); ?>">
+                <span class="ppanel-xish"></span>
+                <div class="ppanel-text-center ppanel-modal-content">
+                    <h1><?php the_title(); ?></h1>
+                    <?php if(has_excerpt()): ?><h2><?php the_excerpt(); ?></h2><?php endif; ?>
+                    <div class="ppanel-modal-text-body ppanel-text-left">
+                        <?php the_content(); ?>
+                    </div>
+                    <?php if(has_post_thumbnail(get_the_ID())): ?>
+                    <img src="<?php the_post_thumbnail_url('ppanel-tile-size'); ?>" class="ppanel-modal-thumbnail" />
+                    <?php endif; ?>
+                </div>
+            </div>
+<?php
+        endwhile; 
+        wp_reset_query();
     }
 
 }

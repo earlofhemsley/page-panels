@@ -44,6 +44,77 @@
     cursor:pointer;
 }
 
+/*
+ *  Modal Styles
+ */
+
+.ppanel-modal-wrapper{
+    position: fixed;
+    top: 50px;
+    width: 75%;
+    left: 50%;
+    max-width: 750px;
+    margin: 0 -375px;
+    background-color: white;
+    padding: 15px;
+    border: black 1px solid;
+    border-radius: 5px;
+    z-index: 2;
+    color: black;
+    display:none;
+}
+
+.ppanel-modal-backdrop{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color: #333;
+    opacity: .5;
+    z-index: 1;    
+    display:none;
+}
+
+.ppanel-modal-open{
+    overflow: hidden;
+}
+
+.ppanel-xish{
+    width: 12px;
+    height: 12px;
+    background-image: url("../img/x.png");
+    background-size: 12px 12px;
+    background-repeat: no-repeat;
+    position:absolute;
+    right:8px;
+    top:8px;
+    cursor:pointer;
+}
+
+.ppanel-modal-content{
+    font-size:14px;
+    width:90%;
+    margin: auto;
+}
+
+.ppanel-modal-thumbnail{
+    width: 100%;
+    max-width:250px;
+}
+
+.ppanel-text-center{
+    text-align: center;
+}
+
+.ppanel-text-left{
+    text-align: left;
+}
+
+.ppanel-text-right{
+    text-align:right;
+}
+
 @media screen and (max-width:726px){
 
     .ppanel-container > ul{

@@ -12,6 +12,18 @@ if(jQuery){
 
     $(window).on('resize', function(){
         frameTiles();
-    })
+    });
+
+    $('img.modalable').on('click', function(){
+        $('body').addClass('ppanel-modal-open');
+        $('.ppanel-modal-backdrop').css('display','block');
+        $($(this).data('show')).fadeIn();
+    });
+
+    $('span.ppanel-xish').on('click', function(){
+        $('body').removeClass('ppanel-modal-open');
+        $('.ppanel-modal-backdrop').css('display','none');
+        $('.ppanel-modal-wrapper').fadeOut();
+    });
 
 }
