@@ -153,7 +153,7 @@ class PagePanel extends WP_Widget {
 
         $numTiles = get_option('ppanel-numTiles', 15);
         $regex = "/^ppanel-tile-";
-        $regex .= ($numTiles >= 10) ? "1[0-".$numTiles % 10 . "]$/" : "[1-$numTiles]$/";
+        $regex .= ($numTiles >= 10) ? "([1-9]|1[0-".$numTiles % 10 . "])$/" : "[1-$numTiles]$/";
         $pageIds = array_intersect_key($instance, array_flip( preg_grep( $regex, array_keys($instance) ) ));
         $pageIds = array_filter($pageIds, function($v){ return $v != 0; });
 

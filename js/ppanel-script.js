@@ -3,7 +3,7 @@ if(jQuery){
     var frameTiles = function(){
         var height = 0;
         $('.ppanel-container .ppanel-tile-image img').each(function(){
-            height = $(this).height() + 8 > height ? $(this).height() + 8 : height;
+            height = $(this).height() + 6 > height ? $(this).height() + 6 : height;
         });
         $('.ppanel-container .ppanel-tile-image').css('height', height);
     };

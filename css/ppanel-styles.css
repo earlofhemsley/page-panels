@@ -21,14 +21,17 @@
     width: 100%;
     max-width:400px;
     margin: 0 auto 15px;
-    display: inline-block; 
+    -webkit-column-break-inside: avoid;
+    page-break-inside:avoid;
+    break-inside:avoid;
 }
 
 
 .ppanel-container .ppanel-tile-image{
     width:100%;
-    border: 2px black solid;
+    border: 2px solid black;
 }
+
 
 .ppanel-container .ppanel-tile-image > span{
     height: 100%;
