@@ -191,7 +191,7 @@ class PagePanel extends WP_Widget {
                     <h1><?php the_title(); ?></h1>
                     <?php if(has_excerpt()): ?><h2><?php the_excerpt(); ?></h2><?php endif; ?>
                     <div class="ppanel-modal-text-body ppanel-text-left">
-                        <?php the_content(); ?>
+                        <?php echo apply_filters('the_content',get_the_content()); ?>
                     </div>
                     <?php if(has_post_thumbnail(get_the_ID())): ?>
                     <img src="<?php the_post_thumbnail_url('ppanel-tile-size'); ?>" class="ppanel-modal-thumbnail" />
