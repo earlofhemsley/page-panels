@@ -101,6 +101,10 @@
     margin: auto;
 }
 
+.ppanel-modal-content ul{
+    padding-left:20px;
+}
+
 .ppanel-modal-thumbnail{
     width: 100%;
     max-width:100px;
