@@ -29,7 +29,8 @@
 
 .ppanel-container .ppanel-tile-image{
     width:100%;
-    border: 2px solid black;
+    max-width: 200px;
+    margin: auto;
 }
 
 

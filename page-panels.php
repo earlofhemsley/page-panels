@@ -142,15 +142,6 @@ class PagePanel extends WP_Widget {
         //prepare query based on page values
         //loop through pages and output tiles
 
-        $columnClassMap = array(
-            1 => 'col-sm-12',
-            2 => 'col-sm-6',
-            3 => 'col-sm-4',
-            4 => 'col-sm-3',
-            6 => 'col-sm-2',
-            12 => 'col-sm-1',
-        );
-
         $numTiles = get_option('ppanel-numTiles', 15);
         $regex = "/^ppanel-tile-";
         $regex .= ($numTiles >= 10) ? "([1-9]|1[0-".$numTiles % 10 . "])$/" : "[1-$numTiles]$/";
@@ -179,7 +170,7 @@ class PagePanel extends WP_Widget {
 
         $ppQuery = new WP_Query(array(
            'post_type' => 'page',
-           'post__in'  => array_intersect_key($instance, array_flip( preg_grep( $regex, array_keys($instance) ) )),
+           'post__in'  => $pageIds,
            'orderby'   => 'post__in',
         ));
         while($ppQuery->have_posts()):
@@ -193,9 +184,6 @@ class PagePanel extends WP_Widget {
                     <div class="ppanel-modal-text-body ppanel-text-left">
                         <?php echo apply_filters('the_content',get_the_content()); ?>
                     </div>
-                    <?php if(has_post_thumbnail(get_the_ID())): ?>
-                    <img src="<?php the_post_thumbnail_url('ppanel-tile-size'); ?>" class="ppanel-modal-thumbnail" />
-                    <?php endif; ?>
                 </div>
             </div>
 <?php
