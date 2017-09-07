@@ -18,13 +18,23 @@ if(jQuery){
         $('img.modalable').on('click', function(){
             $('body').addClass('ppanel-modal-open');
             $('.ppanel-modal-backdrop').css('display','block');
-            $($(this).data('show')).fadeIn();
+            var modal = $($(this).data('show'));
+
+            modal.fadeIn(400, function(){
+                if(($(window).height()-50) < modal.outerHeight()){
+                    modal.css('height', $(window).height() - 100);
+                    modal.css('overflow', 'scroll');
+                }
+            });
         });
 
         $('span.ppanel-xish').on('click', function(){
             $('body').removeClass('ppanel-modal-open');
             $('.ppanel-modal-backdrop').css('display','none');
-            $('.ppanel-modal-wrapper').fadeOut();
+            $('.ppanel-modal-wrapper').fadeOut(400, function(){
+                $(this).css('height','');
+                $(this).css('overflow','');
+            });
         });
     });
 }

@@ -58,7 +58,7 @@
     width: 75%;
     left: 50%;
     max-width: 300px;
-    margin: 0 -150px;
+    margin-left: -37.8%;
     background-color: white;
     padding: 15px;
     border: black 1px solid;
@@ -117,6 +117,11 @@
     display:block;
     float:left;
     margin: 0 10px 10px 0;
+}
+
+.ppanel-modal-content img {
+    max-width: 100%;
+    height: auto;
 }
 
 .ppanel-modal-content ul{
