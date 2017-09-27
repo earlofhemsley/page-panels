@@ -128,7 +128,7 @@ class PagePanel extends WP_Widget {
 
     }
 
-    public function update($new_instance){
+    public function update($new_instance, $old_instance){
         $toReturnInstance = array();
         for($i=1; $i<=get_option('ppanel-numTiles', 15); $i++){
             $toReturnInstance["ppanel-tile-$i"] = isset($new_instance["ppanel-tile-$i"]) ? $new_instance["ppanel-tile-$i"] : 0;
