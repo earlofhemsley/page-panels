@@ -94,10 +94,10 @@ class PagePanel extends WP_Widget {
         $pages = get_posts(array(
             'post_type'     => 'page',
             'meta_key'      => '_thumbnail_id',
+            'numberposts'   => '-1'
         ));
 
         $numTiles = get_option('ppanel-numTiles', 15);
-        
                     
         for($i=1; $i<=$numTiles; $i++){
             //output a dropdown containing all the pages from the query as options
