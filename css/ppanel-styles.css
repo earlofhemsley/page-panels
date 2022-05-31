@@ -102,18 +102,18 @@
     margin: auto;
 }
 
-.ppanel-modal-content .aligncenter{
+.ppanel-modal-content .aligncenter, .ppanel-modal-content .aligncenter img {
     display:block;
     margin:auto;
 }
 
-.ppanel-modal-content .alignright{
+.ppanel-modal-content .alignright, .ppanel-modal-content .alignright img {
     display:block;
     float:right;
     margin: 0 0 10px 10px;
 }
 
-.ppanel-modal-content .alignleft{
+.ppanel-modal-content .alignleft, .ppanel-modal-content .alignleft img {
     display:block;
     float:left;
     margin: 0 10px 10px 0;

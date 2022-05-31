@@ -3,7 +3,7 @@
  * Plugin Name: Page Panel
  * Plugin URI: http://landonhemsley.com
  * Description: This plugin allows you to identify site pages to use as tiles in a widget mosaic. Best used as part of a website dedicated to resume or recruitment purposes.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Landon Hemsley
  * Author URI: http://landonhemsley.com
  * License: GPL2
